@@ -31,6 +31,7 @@ switch (action) {
 function getBands(artist) {
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
       .then(function (response) {
+        console.log("--------------------------------------------------------------------------------");
         console.log("Name of the venue:", response.data[0].venue.name);
         console.log("Venue location:", response.data[0].venue.city);
         var eventDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
@@ -52,6 +53,7 @@ function getBands(artist) {
       if (err) {
         return console.log('Error occurred: ' + err);
       }
+      console.log("--------------------------------------------------------------------------------");
       console.log("Artists: ", data.tracks.items[0].album.artists[0].name)
       console.log("Song Name: ", data.tracks.items[0].name)
       console.log("Preview Link: ", data.tracks.items[0].preview_url)
@@ -68,7 +70,7 @@ function getBands(artist) {
     axios.get(queryUrl)
         .then(function (response) {
            var movieResults =  (
-               "\nTitle: " + response.data.Title +
+               "Title: " + response.data.Title +
                "\nYear Released: " + response.data.Released +
                "\nIMDB Rating: " + response.data. imdbRating +
                "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value +
@@ -77,6 +79,7 @@ function getBands(artist) {
                "\nPlot: " + response.data.Plot +
                "\nActors/Actresses: " + response.data.Actors
            )
+            console.log("--------------------------------------------------------------------------------");
             console.log (movieResults)
 
         })
