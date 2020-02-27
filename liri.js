@@ -17,7 +17,7 @@ switch (action) {
     getSongs(value)
     break;
   case "movie-this":
-    movieThis(value)
+    getMovies(value)
     break;
   case "do-what-it-says":
     doWhatItSays()
@@ -35,6 +35,7 @@ function getBands(artist) {
         console.log("Venue location:", response.data[0].venue.city);
         var eventDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
         console.log("Date of the Event:", eventDate);
+       
       })
       .catch(function (error) {
         console.log(error);
@@ -59,7 +60,7 @@ function getBands(artist) {
   }
 
   //movie-this 
-  function movieThis() {
+  function getMovies() {
     if (value === "") {
         value = "mr nobody"
     }
@@ -82,4 +83,28 @@ function getBands(artist) {
         .catch(function (error) {
             console.log(error);
         })
+}
+
+//do-what-it-says 
+function doWhatItSays() {
+  fs.readFile("random.txt", "utf8", function (err, data) {
+    data = data.split(",");
+    var action = data[0]
+    var value = data[1]
+    // getSongs(value)
+    switch (action) {
+      case "concert-this":
+        getBands(value)
+        break;
+      case "spotify-this-song":
+        getSongs(value)
+        break;
+      case "movie-this":
+        getMovies(value)
+        break;
+      default:
+        console.log("Choose one of the following commands: \nconcert-this <artist>, \nspotify-this-song <song name>, \nmovie-this <movie title>, \ndo-what-it-says")
+        break;
+    }
+  });
 }
