@@ -17,7 +17,7 @@ switch (action) {
     getSongs(value)
     break;
   case "movie-this":
-    getMovies(value)
+    movieThis(value)
     break;
   case "do-what-it-says":
     doWhatItSays()
@@ -27,6 +27,7 @@ switch (action) {
     break;
 }
 
+//concert-this
 function getBands(artist) {
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
       .then(function (response) {
@@ -39,3 +40,46 @@ function getBands(artist) {
         console.log(error);
       });
   }
+
+  //spotify-this-song 
+  function getSongs(songName) {
+    if (songName === "") {
+      songName = "I Saw the Sign";
+    }
+  
+    spotify.search({ type: 'track', query: songName }, function (err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      }
+      console.log("Artists: ", data.tracks.items[0].album.artists[0].name)
+      console.log("Song Name: ", data.tracks.items[0].name)
+      console.log("Preview Link: ", data.tracks.items[0].preview_url)
+      console.log("Album Name: ", data.tracks.items[0].album.name)
+    });
+  }
+
+  //movie-this 
+  function movieThis() {
+    if (value === "") {
+        value = "mr nobody"
+    }
+    var queryUrl = "http://www.omdbapi.com/?t=" + value + "&y=&plot=short&apikey=trilogy"
+    axios.get(queryUrl)
+        .then(function (response) {
+           var movieResults =  (
+               "\nTitle: " + response.data.Title +
+               "\nYear Released: " + response.data.Released +
+               "\nIMDB Rating: " + response.data. imdbRating +
+               "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value +
+               "\nCountry Produced: " + response.data.Country +
+               "\nLanguage: " + response.data.Language +
+               "\nPlot: " + response.data.Plot +
+               "\nActors/Actresses: " + response.data.Actors
+           )
+            console.log (movieResults)
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+}
