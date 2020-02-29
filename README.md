@@ -20,4 +20,4 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 3. `node liri.js <command> <query>`
 
 ## Screenshots:
-![](images/liri.jpg)
+![](https://github.com/jenniferchan2267/LIRI-Node-App/blob/master/image/liri.jpg)
