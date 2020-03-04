@@ -8,6 +8,7 @@ var spotify = new Spotify(keys.spotify);
 
 var action = process.argv[2];
 var value = process.argv[3];
+var defaultMovie = "Mr. Nobody";
 
 switch (action) {
   case "concert-this":
@@ -17,6 +18,9 @@ switch (action) {
     getSongs(value)
     break;
   case "movie-this":
+    if (value == "") {
+      value = defaultMovie;
+    }
     getMovies(value)
     break;
   case "do-what-it-says":
@@ -46,7 +50,7 @@ function getBands(artist) {
   //spotify-this-song 
   function getSongs(songName) {
     if (songName === "") {
-      songName = "I Saw the Sign";
+      songName = "The Sign";
     }
   
     spotify.search({ type: 'track', query: songName }, function (err, data) {
@@ -62,11 +66,8 @@ function getBands(artist) {
   }
 
   //movie-this 
-  function getMovies() {
-    if (value === "") {
-        value = "mr nobody"
-    }
-    var queryUrl = "http://www.omdbapi.com/?t=" + value + "&y=&plot=short&apikey=trilogy"
+  function getMovies(movieName) {
+    var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy"
     axios.get(queryUrl)
         .then(function (response) {
            var movieResults =  (
